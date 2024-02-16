@@ -11,6 +11,18 @@ function kjop() {
 
 
 //input validering
+    const antallticket = parseInt(antall);
+    const telefonRegex = /^\d{8}$/; // Norwegian phone number format (8 digits)
+    const epostRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    if (!film || !antall || !fornavn || !etternavn || !telefonRegex.test(telefon) || !epostRegex.test(epost)) {
+        alert('Vennligst fyll ut alle feltene riktig.');
+        return;
+    }
+    if (antallticket <= 0 ){
+        alert('vennligst fyll inn riktig antallbilletter');
+        return;
+    }
 
 
     if (film && antall && fornavn && etternavn && telefon && epost) {
@@ -36,11 +48,13 @@ function slettAlt() {
 
 function visBilletter() {
     const billettListe = document.getElementById('billettListe');
-    billettListe.innerHTML = '';
+    billettListe.innerHTML = ''; // Clear the existing list
 
+    // Loop through each ticket and add it to the list
     billetter.forEach(billett => {
         const li = document.createElement('li');
-        li.textContent = 'Film: ${billett.film}, Antall: ${billett.antall}, Fornavn: ${billett.fornavn}, Telefon: ${billett.telefon}, Epost: ${billett.epost}';
+        // Display customer information for each ticket
+        li.textContent = `Film: ${billett.film}, Antall: ${billett.antall}, Fornavn: ${billett.fornavn}, Etternavn: ${billett.etternavn}, Telefon: ${billett.telefon}, Epost: ${billett.epost}`;
         billettListe.appendChild(li);
     });
 }

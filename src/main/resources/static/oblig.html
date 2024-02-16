@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bestilling av kino billetter</title>
+    <script src="oblig1.js"></script>
+<style>
+
+    .box1{
+        display:block;
+        margin-top:6px;
+        margin-bottom:20px;
+    }
+    .box2 {
+        display:block;
+        margin-top:6px;
+    }
+    label {
+        font-weight:bold;
+    }
+    #antall {
+        width:2.5%;
+    }
+</style>
+</head>
+<body>
+<h1>Bestilling av kinobilletter</h1>
+
+<div class="box1">
+    <label for="film">Velg film: </label>
+    <select name="film" id="film">
+        <option value="">Velg film her</option>
+        <option value="race">Race</option>
+        <option value="old is gold">Old is Gold</option>
+        <option value="jungle">Jungle</option>
+    </select>
+</div>
+
+<div class="box1">
+    <label for="antall">Antall</label>
+    <input type="number" id="antall" required>
+</div>
+
+<div class="box2">
+    <label for="fornavn">Fornavn</label>
+    <input type="text" id="fornavn" required>
+</div>
+
+<div class="box2">
+    <label for="etternavn">Etternavn</label>
+    <input type="text" id="etternavn" required>
+</div>
+<div class="box2">
+    <label for="telefon">Telefonnr</label>
+    <input type="tel" id="telefon" required>
+</div>
+
+<div class="box2">
+    <label for="epost">Epost</label>
+    <input type="email" id="epost" required>
+</div>
+
+<div class="box2">
+    <button onclick="kjop()">Kjøp billett</button>
+</div>
+
+<h2>Alle billetter</h2>
+<button onclick="slettAlt()">Slett alle billettene</button>
+
+<ul id="billettListe"></ul>
+
+</body>

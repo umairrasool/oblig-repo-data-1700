@@ -2,45 +2,52 @@ let billetter = [];
 
 function kjop() {
     const film = document.getElementById('film').value;
-    const antall = document.getElementById('antall').value;
+    const antallInput = document.getElementById('antall').value;
     const fornavn = document.getElementById('fornavn').value;
     const etternavn = document.getElementById('etternavn').value;
     const telefon = document.getElementById('telefon').value;
     const epost = document.getElementById('epost').value;
 
-
-
-//input validering
-    const antallticket = parseInt(antall);
+    // regular expressions for validation
     const telefonRegex = /^\d{8}$/; // Norwegian phone number format (8 digits)
     const epostRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+    const antall = parseInt(antallInput);
 
-    if (!film || !antall || !fornavn || !etternavn || !telefonRegex.test(telefon) || !epostRegex.test(epost)) {
-        alert('Vennligst fyll ut alle feltene riktig.');
+    // Input validation for all fields
+    let errorMessage = "";
+    if (!film || !antallInput || !fornavn || !etternavn || !telefon || !epost) {
+        errorMessage += "Vennligst fyll ut alle feltene.\n";
+    }
+    if (!Number.isInteger(antall) || antall <= 0) {
+        errorMessage += "Vennligst angi et gyldig antall billetter (positivt heltall).\n";
+    }
+    if (!telefonRegex.test(telefon)) {
+        errorMessage += "Vennligst angi et gyldig telefonnummer (8 siffer).\n";
+    }
+    if (!epostRegex.test(epost)) {
+        errorMessage += "Vennligst angi en gyldig e-postadresse.\n";
+    }
+
+    // Display error message if validation fails
+    if (errorMessage !== "") {
+        alert(errorMessage);
         return;
     }
-    if (antallticket <= 0 ){
-        alert('vennligst fyll inn riktig antallbilletter');
-        return;
-    }
 
-
-    if (film && antall && fornavn && etternavn && telefon && epost) {
-        const billett = {
-            film: film,
-            antall: antall,
-            fornavn: fornavn,
-            etternavn: etternavn,
-            telefon: telefon,
-            epost: epost
-        };
-        billetter.push(billett);
-        visBilletter();
-        nullstillInput();
-    }else {
-        alert('Vennligst fyll ut alle feltene.');
-    }
+    // Proceed with further processing if all validations pass
+    const billett = {
+        film: film,
+        antall: antall,
+        fornavn: fornavn,
+        etternavn: etternavn,
+        telefon: telefon,
+        epost: epost
+    };
+    billetter.push(billett);
+    visBilletter();
+    nullstillInput();
 }
+
 function slettAlt() {
     billetter = [];
     visBilletter();
@@ -48,12 +55,10 @@ function slettAlt() {
 
 function visBilletter() {
     const billettListe = document.getElementById('billettListe');
-    billettListe.innerHTML = ''; // Clear the existing list
+    billettListe.innerHTML = '';
 
-    // Loop through each ticket and add it to the list
     billetter.forEach(billett => {
         const li = document.createElement('li');
-        // Display customer information for each ticket
         li.textContent = `Film: ${billett.film}, Antall: ${billett.antall}, Fornavn: ${billett.fornavn}, Etternavn: ${billett.etternavn}, Telefon: ${billett.telefon}, Epost: ${billett.epost}`;
         billettListe.appendChild(li);
     });
